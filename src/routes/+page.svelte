@@ -1,59 +1,48 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>BlocksBin</title>
+	<meta name="description" content="BlocksBin Sort Your Text Blocks" />
 </svelte:head>
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
+<div class="header">
+	<h1>BlocksBin</h1>
+	<p>sort and secure your text</p>
+	<div class="steps">
+		<div class="step">
+			<p>Create Your Blocks</p>
+		</div>
+		<div class="line"></div>
+		<div class="step">
+			<p>Encrypt Them</p>
+		</div>
+		<div class="line"></div>
+		<div class="step">
+			<p>Upload Them</p>
+		</div>
+	</div>
+</div>
 
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
-
-<style>
-	section {
+<style lang="scss">
+	.header {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
+		h1 {
+			font-size: 2.3rem;
+			margin: 0;
+		}
+		.steps {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			.line {
+				width: 3rem;
+				height: 0px;
+				border: 1px solid aliceblue;
+			}
+		}
 	}
 </style>
