@@ -1,9 +1,9 @@
 <script>
-	import Header from './Header.svelte';
+	import Nav from '$lib/Components/Nav.svelte';
 </script>
 
 <div class="app">
-	<Header />
+	<Nav />
 
 	<main>
 		<slot />
@@ -16,6 +16,7 @@
 
 <style lang="scss">
 	@import './style.scss';
+
 	.app {
 		display: flex;
 		flex-direction: column;
