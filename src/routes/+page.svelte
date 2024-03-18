@@ -4,7 +4,6 @@
 
 <svelte:head>
 	<title>BlocksBin</title>
-	<meta name="description" content="BlocksBin Sort Your Text Blocks" />
 </svelte:head>
 
 <div class="header">

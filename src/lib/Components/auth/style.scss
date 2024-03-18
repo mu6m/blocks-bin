@@ -1,0 +1,63 @@
+*:focus {
+	outline: none;
+}
+.forms {
+	min-height: 80vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	max-width: 40rem;
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		width: 100%;
+		.place {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			align-self: center;
+			label {
+				font-weight: bold;
+			}
+			input {
+				width: 20rem;
+				background: rgba(240, 248, 255, 0.5);
+				border: 1px solid rgba(240, 248, 255);
+				border-radius: 10px;
+				padding-inline: 1rem;
+				padding: 0.7rem;
+				&:disabled {
+					border: none;
+					background: rgba(240, 248, 255, 0.1);
+				}
+			}
+		}
+		button {
+			background-color: rgba(240, 248, 255);
+			color: #1e1e1ed6;
+			text-decoration: none;
+			border-radius: 10px;
+			padding-inline: 1rem;
+			padding: 0.7rem;
+			border: none;
+			max-width: 9rem;
+			width: 100%;
+			align-self: center;
+			cursor: pointer;
+			&:disabled {
+				background: rgba(240, 248, 255, 0.1);
+			}
+		}
+	}
+	.reminder {
+		margin-top: 0.5rem;
+		font-size: 0.8rem;
+	}
+	.errors {
+		.error {
+			color: red;
+		}
+	}
+}

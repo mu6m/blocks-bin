@@ -7,18 +7,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum CONTENT_TYPE {
+  TEXT
+  IMAGE
+  VIDEO
+  FILE
+}
+
 model list {
-  id     String  @id @unique @default(cuid())
+  id String @id @unique @default(cuid())
+
+  title String
+
   blocks block[]
   user   user    @relation(fields: [userId], references: [id])
   userId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([userId, title])
 }
 
 model block {
   id String @id @unique @default(cuid())
+
+  type    CONTENT_TYPE
+  content String
 
   list   list   @relation(fields: [listId], references: [id])
   listId String
@@ -28,13 +43,32 @@ model block {
 }
 
 model user {
-  id       String @id @unique @default(cuid())
-  email    String @unique
-  username String @unique
-  password String
+  id       String  @id @unique @default(cuid())
+  email    String  @unique
+  username String? @unique
+  password String?
 
   createdAt DateTime @default(now())
   loggedIn  DateTime @default(now())
 
   lists list[]
+
+  reset reset?
+}
+
+model verify {
+  id String @id @unique @default(cuid())
+
+  createdAt DateTime @default(now())
+
+  email String @unique
+}
+
+model reset {
+  id String @id @unique @default(cuid())
+
+  createdAt DateTime @default(now())
+
+  user   user   @relation(fields: [userId], references: [id])
+  userId String @unique
 }

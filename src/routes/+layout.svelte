@@ -2,6 +2,9 @@
 	import Nav from '$lib/Components/Nav.svelte';
 </script>
 
+<svelte:head>
+	<meta name="description" content="BlocksBin Sort Your Text Blocks" />
+</svelte:head>
 <div class="app">
 	<Nav />
 
