@@ -1,5 +1,6 @@
-import { json } from '@sveltejs/kit';
+import { json, redirect } from '@sveltejs/kit';
 
-export async function POST({ request, params }: any) {
-	return 'logged out';
+export async function POST({ cookies }: any) {
+	cookies.delete('user', { path: '/' });
+	redirect(302, '/');
 }
