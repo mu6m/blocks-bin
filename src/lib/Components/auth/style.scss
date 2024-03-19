@@ -48,6 +48,7 @@
 			cursor: pointer;
 			&:disabled {
 				background: rgba(240, 248, 255, 0.1);
+				cursor: auto;
 			}
 		}
 	}

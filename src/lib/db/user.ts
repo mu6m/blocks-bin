@@ -1,85 +1,62 @@
-import prisma from '$lib/db/prisma';
-import { Resend } from 'resend';
-import { RESEND_TOKEN } from '$env/static/private';
+import { signAccessToken } from '$lib/helpers/jwt';
+import prisma from '$lib/helpers/prisma';
+import bcrypt from 'bcrypt';
 
-async function check_email(email: string) {
-	let id = undefined;
-	let data = undefined;
-	//check if user exists
-	const user = await prisma.user.findUnique({
+export async function register({
+	email,
+	username,
+	password
+}: {
+	email: string;
+	username: string;
+	password: string;
+}) {
+	const hashed = await bcrypt.hash(password, 10);
+
+	const user = await prisma.user.update({
 		where: {
-			email
+			email: email
+		},
+		data: {
+			username,
+			password: hashed
 		}
 	});
-	if (user) {
+	return user;
+}
+
+export async function login({ username, password }: { username: string; password: string }) {
+	let user: any = await prisma.user.findUnique({
+		where: {
+			username
+		}
+	});
+
+	if (user === null || user.password === null) {
 		return null;
 	}
-	data = await prisma.verify.findUnique({
-		where: {
-			email
-		}
-	});
 
-	id = data?.id;
-	if (!id) {
-		data = await prisma.verify.create({
-			data: {
-				email
-			}
-		});
-		id = data.id;
+	const result = bcrypt.compare(password, user.password);
+
+	if (!result) {
+		return null;
 	}
-	return id;
+
+	delete user.password;
+
+	const token = await signAccessToken(user);
+
+	return token;
 }
 
-async function check_email_code({ email, code }: { email: string; code: string }) {
-	//check the records
-	const data = await prisma.verify.findUnique({
-		where: {
-			id: code,
-			email
-		}
+export async function find_user({ user }: { user: string }) {
+	const data = await prisma.user.findFirst({
+		where: { OR: [{ username: user }, { email: user }] }
 	});
-	console.log(data);
-	if (data?.id) {
-		// remove the code
-		await prisma.verify.delete({
-			where: {
-				id: code
-			}
-		});
-		// create a user with that email but without a user and a password
-		const { id } = await prisma.user.create({
-			data: {
-				email
-			}
-		});
-		console.log(id);
-		if (id) {
-			return true;
-		}
+
+	if (data?.username != null) {
+		return true;
 	}
+
 	return false;
-}
-
-//when registering the user and the code is null just continue with the registering
-export async function check_code({ email, code }: { email: string; code: string }) {
-	const verified = await check_email_code({ email, code });
-	return {
-		verified
-	};
-}
-export async function send_code({ email }: { email: string }) {
-	const resend = new Resend(RESEND_TOKEN);
-	const code = await check_email(email);
-	if (code === null) {
-		return { success: false, data: 'email already exists continue registering' };
-	}
-	const resp = await resend.emails.send({
-		from: 'onboarding@resend.dev',
-		to: email,
-		subject: 'BlocksBin Code',
-		html: `<p>Congrats on creating your account on blocksbin !</p><p>here is your code <strong>${code}</strong></p>`
-	});
-	return resp;
 }
