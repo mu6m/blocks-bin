@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
+	import { redirect } from '@sveltejs/kit';
 	import axios from 'axios';
 
 	let loading = false;

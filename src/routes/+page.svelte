@@ -2,10 +2,6 @@
 	import arrow from '$lib/assets/svg/Arrow.svg';
 </script>
 
-<svelte:head>
-	<title>BlocksBin</title>
-</svelte:head>
-
 <div class="header">
 	<div class="title">
 		<h1>BlocksBin</h1>

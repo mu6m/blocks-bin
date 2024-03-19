@@ -3,7 +3,8 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="BlocksBin Sort Your Text Blocks" />
+	<meta name="description" content="BlocksBin Sort And Encrypt Your Blocks" />
+	<title>BlocksBin</title>
 </svelte:head>
 <div class="app">
 	<Nav />

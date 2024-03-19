@@ -35,10 +35,10 @@ export async function POST({ request, cookies }: any) {
 	cookies.set('user', data, {
 		path: '/',
 		httpOnly: true,
-		sameSite: 'strict',
+		sameSite: 'lax',
 		secure: JWT_SECRET,
 		maxAge: 60 * 60 * 24 * 30
 	});
 
-	redirect(302, '/app/');
+	redirect(302, '/app');
 }
