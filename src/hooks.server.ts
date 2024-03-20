@@ -7,12 +7,15 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	//that's how it's should be done
 	//not with .startswith
-	if (!session && event.url.pathname.split('/')[1] === 'app') {
-		// if there is no session load page as normal
-		return new Response(null, {
-			status: 302,
-			headers: { location: '/' }
-		});
+	const routes = event.url.pathname.split('/').slice(1);
+
+	if (!session) {
+		if (routes[0] === 'app') {
+			return new Response(null, {
+				status: 302,
+				headers: { location: '/' }
+			});
+		}
 	}
 
 	const user = await verifyAccessToken(session);
@@ -29,6 +32,14 @@ export const handle: Handle = async ({ event, resolve }) => {
 			username: user.username,
 			email: user.email
 		};
+	}
+
+	//why do you need login/register when you are already signed up?
+	if (routes[0] === 'auth' && routes[1] !== 'logout') {
+		return new Response(null, {
+			status: 302,
+			headers: { location: '/app' }
+		});
 	}
 
 	// load page as normal

@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { goto, invalidate } from '$app/navigation';
-	import { redirect } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
 	import axios from 'axios';
 
 	let loading = false;
@@ -18,7 +17,8 @@
 			}
 		);
 		if (status === 200) {
-			goto('/app');
+			goto('/app', { invalidateAll: true });
+			console.log('success');
 		} else if (status === 404) {
 			errors.push('user not found');
 		} else if (status === 402) {

@@ -32,13 +32,13 @@ export async function POST({ request, cookies }: any) {
 		error(402, 'wrong password');
 	}
 
-	cookies.set('user', data, {
+	await cookies.set('user', data, {
 		path: '/',
-		httpOnly: true,
+		httpOnly: false,
 		sameSite: 'lax',
 		secure: JWT_SECRET,
 		maxAge: 60 * 60 * 24 * 30
 	});
 
-	redirect(302, '/app');
+	return redirect(303, '/app');
 }
