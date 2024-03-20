@@ -1,17 +1,20 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+
+	import CreateList from '$lib/Components/list/CreateList.svelte';
+	import List from '$lib/Components/list/List.svelte';
 </script>
 
-<h1>Welcome {$page.data.user.username}!</h1>
+<div class="container">
+	<h1>Welcome {$page.data.user.username}!</h1>
+	<CreateList />
+	<List lists_info={$page.data} />
+</div>
 
-<ol>
-	<li>
-		<div class="list">
-			<h2>Title</h2>
-			<div class="info">
-				<p class="date">YEAH</p>
-				<p class="blocks">123-18-19</p>
-			</div>
-		</div>
-	</li>
-</ol>
+<style lang="scss">
+	.container {
+		margin: 0 auto;
+		max-width: 50rem;
+	}
+</style>

@@ -10,7 +10,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const routes = event.url.pathname.split('/').slice(1);
 
 	if (!session) {
-		if (routes[0] === 'app') {
+		// Dont allow him to access the api route we use it to send the posts
+		if (routes[0] === 'app' || routes[0] === 'api') {
 			return new Response(null, {
 				status: 302,
 				headers: { location: '/' }

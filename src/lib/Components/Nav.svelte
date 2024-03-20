@@ -6,9 +6,8 @@
 	<div class="items">
 		<h2><a href="/">BlocksBin</a></h2>
 		<div class="right">
-			<a href="/why-us">Why Us</a>
-
 			{#if $page.data.user == null}
+				<a href="/why-us">Why Us</a>
 				<a href="/auth/login">Login</a>
 				<a href="/auth/register">Register</a>
 			{:else}
