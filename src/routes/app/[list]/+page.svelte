@@ -1,23 +1,29 @@
-<!-- <script lang="ts">
+<script lang="ts">
 	import { page } from '$app/stores';
+	import CreateBlock from '$lib/Components/CreateBlock.svelte';
 </script>
 
-<h1>Welcome {$page.data.user.username}!</h1>
-
-<ol>
-	<li>
-		<div class="list">
-			<a class="title" href="/app/123">Title</a>
-			<div class="info">
-				<p class="date">123-18-19</p>
-				<p class="blocks">21</p>
+<div class="center">
+	<CreateBlock />
+	<!-- <ol>
+		<li>
+			<div class="list">
+				<p>Title</p>
 			</div>
-		</div>
-	</li>
-</ol>
-<div></div>
+		</li>
+	</ol> -->
+</div>
 
 <style lang="scss">
+	.center {
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		max-width: 40rem;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+	}
 	ol {
 		margin: 0 auto;
 		display: flex;
@@ -49,4 +55,4 @@
 			}
 		}
 	}
-</style> -->
+</style>

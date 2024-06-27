@@ -32,7 +32,7 @@ model list {
 model block {
   id String @id @unique @default(cuid())
 
-  type    CONTENT_TYPE
+  type    CONTENT_TYPE @default(TEXT)
   content String
 
   list   list   @relation(fields: [listId], references: [id])

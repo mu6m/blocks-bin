@@ -11,8 +11,12 @@ export async function create({ title, id }: { title: string; id: string }) {
 	return data;
 }
 
-export async function count() {
-	const data = await prisma.list.count();
+export async function count(userId: string) {
+	const data = await prisma.list.count({
+		where: {
+			userId
+		}
+	});
 
 	return data;
 }
